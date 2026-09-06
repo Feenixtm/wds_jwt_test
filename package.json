@@ -5,8 +5,8 @@
   "description": "Web Dev Simplified - JWT Test",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "authStart": "node authServer.js",
+    "start": "node --watch server.js",
+    "authStart": "node --watch authServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/Feenixtm/wds_jwt_test#readme",
   "dependencies": {
     "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3"
   }
 }
