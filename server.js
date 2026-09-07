@@ -19,20 +19,6 @@ const posts = [
     }
 ]
 
-app.get("/posts", authenticateToken, (req, res) => {
-    res.json({ accessToken: posts.filter(post => post.username === req.user.name), user: req.user });
-});
-
-app.post("/login", (req, res) => {
-    const username = req.body.username;
-    const user = { username: username };
-
-    // Returns JWT_ACCESS_TOKEN
-    const accessToken = jwt.sign(user, process.env.JWT_ACCESS_TOKEN);
-
-    res.json({ accessToken: accessToken });
-});
-
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(" ")[1]
@@ -46,10 +32,16 @@ function authenticateToken(req, res, next) {
             res.sendStatus(401);
         } 
 
+        console.log(payload);
+
         req.user = payload;
         next();
     });
 }
+
+app.get("/posts", authenticateToken, (req, res) => {
+    res.json(posts.filter(post => post.username === req.user.username));
+});
 
 app.listen(5050, () => {
     console.log("Listening to Port: 5050");
